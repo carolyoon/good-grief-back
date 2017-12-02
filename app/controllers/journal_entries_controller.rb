@@ -1,7 +1,7 @@
 class JournalEntriesController < ApplicationController
 
   def index
-    @journal_entries = JournalEntry.all.order(:date)
+    @journal_entries = JournalEntry.all.order(:created_at)
 
     render json: @journal_entries
   end
