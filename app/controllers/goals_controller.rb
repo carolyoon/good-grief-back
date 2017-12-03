@@ -2,25 +2,21 @@ class GoalsController < ApplicationController
 
   before_action :find_goal, only: [:update, :destroy]
 
-  def new
-    @goal = Goal.new
-  end
-
   def create
-    @goal = Goal.new(params[:goals_params])
+    @goal = Goal.new(goals_params)
+
     if @goal.save
-      render json: @goal
+      render json: {goal: @goal}
     else
-      render json: @goal.errors
+      render json: {errors: @goal.errors.full_messages}, status: 422
     end
   end
 
   def update
-    @goal.update(goals_params)
-    if @goal.save
-      render json: @goal
+    if @goal.update(goal_params)
+      render json: {goal: @goal}
     else
-      render json: @goal.errors
+      render json: {error: @goal.errors.full_messages}, status: 422
     end
   end
 
@@ -35,7 +31,7 @@ class GoalsController < ApplicationController
   end
 
   def goals_params
-    params.require(:goals).permit(:content, :completed, :)
+    params.require(:goals).permit(:content, :completed)
   end
 
 end

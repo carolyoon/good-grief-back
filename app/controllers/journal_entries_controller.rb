@@ -1,7 +1,7 @@
 class JournalEntriesController < ApplicationController
 
   def index
-    @journal_entries = JournalEntry.all.order(:date)
+    @journal_entries = JournalEntry.all.order(:created_at)
 
     render json: @journal_entries
   end
@@ -12,7 +12,7 @@ class JournalEntriesController < ApplicationController
     if @journal_entry.save
       render json: {journal_entry: @journal_entry}
     else
-      render json: {errors: @journal_entry.errors.full_messages}, status 422
+      render json: {errors: @journal_entry.errors.full_messages}, status: 422
     end
   end
 
