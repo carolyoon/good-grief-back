@@ -1,7 +1,8 @@
 class JournalEntriesController < ApplicationController
 
   def index
-    @journal_entries = JournalEntry.all.order(:created_at)
+    @user = User.find_by(id: params[:user_id])
+    @journal_entries = @user.journal_entries.order(created_at: :desc)
 
     render json: @journal_entries
   end

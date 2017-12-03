@@ -1,5 +1,5 @@
 class Goal < ApplicationRecord
   belongs_to :user
 
-  validates :content, :completed, presence: true
+  validates :content, presence: true
 end
