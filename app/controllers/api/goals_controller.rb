@@ -1,6 +1,7 @@
-class GoalsController < ApplicationController
+class Api::GoalsController < ApplicationController
 
   before_action :find_goal, only: [:update, :destroy]
+  before_action :authenticate_user
 
   def create
     @goal = Goal.new(goals_params)
