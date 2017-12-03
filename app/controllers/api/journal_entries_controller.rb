@@ -1,5 +1,7 @@
 class Api::JournalEntriesController < ApplicationController
 
+  before_action :authenticate_user
+
   def index
     @user = User.find_by(id: params[:user_id])
     @journal_entries = @user.journal_entries.order(created_at: :desc)

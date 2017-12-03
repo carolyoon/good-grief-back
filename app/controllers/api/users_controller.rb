@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  before_action :authenticate_user, only: [:show, :update]
+
   def create
     @user = User.new(user_params)
 

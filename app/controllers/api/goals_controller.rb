@@ -1,6 +1,7 @@
 class Api::GoalsController < ApplicationController
 
   before_action :find_goal, only: [:update, :destroy]
+  before_action :authenticate_user
 
   def index
     @user = User.find_by(id: params[:user_id])
