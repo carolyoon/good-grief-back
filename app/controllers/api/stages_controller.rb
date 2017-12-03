@@ -1,4 +1,4 @@
-class StagesController < ApplicationController
+class Api::StagesController < ApplicationController
 
   def show
     render json: @stage

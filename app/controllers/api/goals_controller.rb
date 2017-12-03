@@ -1,4 +1,4 @@
-class GoalsController < ApplicationController
+class Api::GoalsController < ApplicationController
 
   before_action :find_goal, only: [:update, :destroy]
 
