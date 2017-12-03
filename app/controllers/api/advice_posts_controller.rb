@@ -1,6 +1,7 @@
 class Api::AdvicePostsController < ApplicationController
 
   before_action :find_advice_post, only: [:update, :destroy]
+  # before_action :authenticate_user
 
   def index
     @advice_posts = AdvicePost.all.order(:created_at)

@@ -4,8 +4,10 @@ JournalEntry.destroy_all
 Stage.destroy_all
 AdvicePost.destroy_all
 
+denial = Stage.create!(name: 'denial')
+
 # user
-user = User.create!(username: 'sampleuser', password: 'password')
+user = User.create!(username: 'sampleuser', password: 'password', stage: denial )
 
 # goals
 user.goals << Goal.create(content: 'Hit the gym', completed: false)
@@ -23,10 +25,11 @@ user.journal_entries << JournalEntry.create(content: "This dawned on me just a f
 user.journal_entries << JournalEntry.create(content: "I thought I had recovered a bit from the meltdowns I felt I had in the last three weeks or so. Not overly ticked off through the day, less annoyed, able to keep my mind off certain things, and then WHAM. I’m up late, and little tired, just surfing the channels and I stop on one of those house buying shows, with a newlywed couple looking for their first house. And all the little jokes, and memories of me and my ex looking for houses together slams into my mind and emotions. I think I get more annoyed with the feeling of needing to damn near be asleep all the time to avoid stuff like this, because it's everything. You expect those episodes to happen if you look at pictures, or talk about her, or listen to soft music, or see a romantic comedy (which I avoid like the ebola virus) but how the hell do you shield yourself from the most innocuous things? I mean fictional Jesus. I know some of the readers here may think I just dwell on it constantly every day. And I promise you I don't. I don't want to at all. It just comes unbidden, without conscious thought or desire.")
 
 # stages
-stages = ["Denial", "Anger", "Bargaining", "Depression", "Acceptance"]
-stages.each { |stage| Stage.create!(name: stage) }
+# stages = ["Denial", "Anger", "Bargaining", "Depression", "Acceptance"]
+# stages.each { |stage| Stage.create!(name: stage) }
+
 
 # advice posts
-user.advice_posts << AdvicePost.create(content: "MY awesome advice works.", stage: 1)
-user.advice_posts << AdvicePost.create(content: "Denial isn't just a river in Egypt.", stage: 1)
-user.advice_posts << AdvicePost.create(content: "Watch something funny.", stage: 1)
+user.advice_posts << AdvicePost.create(content: "MY awesome advice works.", stage: denial)
+user.advice_posts << AdvicePost.create(content: "Denial isn't just a river in Egypt.", stage: denial)
+user.advice_posts << AdvicePost.create(content: "Watch something funny.", stage: denial)
