@@ -1,4 +1,4 @@
-class AdvicePostsController < ApplicationController
+class Api::AdvicePostsController < ApplicationController
 
   def index
     @advice_posts = AdvicePost.all.order(:created_at)

@@ -1,4 +1,4 @@
-class JournalEntriesController < ApplicationController
+class Api::JournalEntriesController < ApplicationController
 
   def index
     @journal_entries = JournalEntry.all.order(:created_at)
