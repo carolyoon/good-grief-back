@@ -2,6 +2,13 @@ class Api::GoalsController < ApplicationController
 
   before_action :find_goal, only: [:update, :destroy]
 
+  def index
+    @user = User.find_by(id: params[:user_id])
+    @goals = @user.goals
+
+    render json: @goals
+  end
+
   def create
     @goal = Goal.new(goals_params)
 
