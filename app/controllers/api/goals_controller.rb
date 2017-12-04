@@ -1,7 +1,8 @@
 class Api::GoalsController < ApplicationController
+  protect_from_forgery with: :null_session
 
   before_action :find_goal, only: [:update, :destroy]
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   def index
     @user = User.find_by(id: params[:user_id])
@@ -11,7 +12,7 @@ class Api::GoalsController < ApplicationController
   end
 
   def create
-    @goal = Goal.new(goals_params)
+    @goal = Goal.new(goal_params)
 
     if @goal.save
       render json: {goal: @goal}
@@ -38,8 +39,8 @@ class Api::GoalsController < ApplicationController
     @goal = Goal.find(params[:id])
   end
 
-  def goals_params
-    params.require(:goals).permit(:content, :completed)
+  def goal_params
+    params.require(:goal).permit(:content, :completed)
   end
 
 end

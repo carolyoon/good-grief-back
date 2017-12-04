@@ -1,6 +1,6 @@
 class Api::JournalEntriesController < ApplicationController
 
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   def index
     @user = User.find_by(id: params[:user_id])
@@ -10,7 +10,9 @@ class Api::JournalEntriesController < ApplicationController
   end
 
   def create
+    @user = User.find_by(id: params[:user_id])
     @journal_entry = JournalEntry.new(journal_params)
+    @journal_entry.user = @user
 
     if @journal_entry.save
       render json: {journal_entry: @journal_entry}
