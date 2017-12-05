@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: true, presence: true
 
   def set_token
-    payload = {user: self}
+    payload = {user: self.id}
     self.token = JWT.encode payload, self.password_digest, 'none'
   end
 
