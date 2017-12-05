@@ -15,6 +15,8 @@ class User < ApplicationRecord
   end
 
   def decode_token
-    JWT.decode token, self.password_digest, false
+    JWT.decode self.token, self.password_digest, false
   end
 end
+
+
