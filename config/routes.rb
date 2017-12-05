@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   namespace :api do
+    resources :sessions, only: [:create, :destroy]
     resources :users do
       resources :goals, only: [:index, :create, :update, :destroy]
 
