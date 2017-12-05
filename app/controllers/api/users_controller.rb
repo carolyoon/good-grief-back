@@ -7,9 +7,7 @@ class Api::UsersController < ApplicationController
     @user = @stage.users.new(username: user_params[:username], password: user_params[:password])
     if @user.save
       @token = @user.set_token
-      p @token
-      payload = {user: @user, token: @token}
-      render json: payload
+      render json: @user
     else
       p @errors = @user.errors.full_messages
       render json: {errors: @errors}, status: 406
