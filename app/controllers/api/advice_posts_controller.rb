@@ -10,11 +10,14 @@ class Api::AdvicePostsController < ApplicationController
   end
 
   def create
-    @advice_post = AdvicePost.new(advice_params)
+    @stage = Stage.find_by(name: advice_params[:stageName].capitalize)
+    @advice_post = AdvicePost.new(content: advice_params[:content], stage_id: @stage.id)
 
     if @advice_post.save
       render json: {advice_post: @advice_post}
     else
+      eap @advice_post
+      eap @advice_post.errors.full_messages
       render json: {errors: @advice_post.errors.full_messages}, status: 422
     end
   end
@@ -34,7 +37,7 @@ class Api::AdvicePostsController < ApplicationController
   private
 
   def advice_params
-    params.require(:advice_post.permit(:content))
+    params.require(:advice_post).permit(:content, :stageName)
   end
 
   def find_advice_post
