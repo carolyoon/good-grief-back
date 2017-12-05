@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-  has_secure_password
-
+  attr_accessor :token
   belongs_to :stage
   has_many :journal_entries
   has_many :advice_posts
@@ -10,5 +9,14 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true, presence: true
 
+  def set_token
+    payload = {user: self}
+    self.token = JWT.encode payload, self.password_digest, 'none'
+  end
 
+  def decode_token
+    JWT.decode self.token, self.password_digest, false
+  end
 end
+
+

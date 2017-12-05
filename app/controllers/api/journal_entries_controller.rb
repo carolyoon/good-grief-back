@@ -1,6 +1,7 @@
 class Api::JournalEntriesController < ApplicationController
+  protect_from_forgery with: :null_session
 
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   def index
     @user = User.find_by(id: params[:user_id])
@@ -10,7 +11,9 @@ class Api::JournalEntriesController < ApplicationController
   end
 
   def create
+    @user = User.find_by(id: params[:user_id])
     @journal_entry = JournalEntry.new(journal_params)
+    @journal_entry.user = @user
 
     if @journal_entry.save
       render json: {journal_entry: @journal_entry}
@@ -22,7 +25,7 @@ class Api::JournalEntriesController < ApplicationController
   private
 
   def journal_params
-    params.require(:journal_entry.permit(:content))
+    params.require(:journal_entry).permit(:content)
   end
 
 end

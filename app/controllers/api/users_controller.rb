@@ -3,12 +3,13 @@ class Api::UsersController < ApplicationController
   before_action :authenticate_user, only: [:show, :update]
 
   def create
-    @user = User.new(user_params)
-
+    @stage = Stage.find_by_name(user_params[:stage])
+    @user = @stage.users.new(username: user_params[:username], password: user_params[:password])
     if @user.save
+      @token = @user.set_token
       render json: @user
     else
-      @errors = @user.errors.full_messages
+      p @errors = @user.errors.full_messages
       render json: {errors: @errors}, status: 406
     end
   end
@@ -30,7 +31,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :stage)
   end
 
 end
