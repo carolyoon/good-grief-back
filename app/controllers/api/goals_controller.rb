@@ -6,13 +6,15 @@ class Api::GoalsController < ApplicationController
 
   def index
     @user = User.find_by(id: params[:user_id])
-    @goals = @user.goals
+    @goals = @user.goals.order(created_at: :desc)
 
     render json: @goals
   end
 
   def create
+    @user = User.find_by(id: params[:user_id])
     @goal = Goal.new(goal_params)
+    @goal.user = @user
 
     if @goal.save
       render json: {goal: @goal}
@@ -31,16 +33,18 @@ class Api::GoalsController < ApplicationController
 
   def destroy
     @goal.destroy
+
+    render status: 200
   end
 
   private
 
   def find_goal
-    @goal = Goal.find(params[:id])
+    @goal = Goal.find_by(id: params[:id])
   end
 
   def goal_params
-    params.require(:goal).permit(:content, :completed)
+    params.require(:goal).permit(:content)
   end
 
 end

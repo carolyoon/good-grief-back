@@ -1,4 +1,5 @@
 class Api::JournalEntriesController < ApplicationController
+  protect_from_forgery with: :null_session
 
   # before_action :authenticate_user
 
@@ -24,7 +25,7 @@ class Api::JournalEntriesController < ApplicationController
   private
 
   def journal_params
-    params.require(:journal_entry.permit(:content))
+    params.require(:journal_entry).permit(:content)
   end
 
 end
