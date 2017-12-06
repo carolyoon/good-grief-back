@@ -12,6 +12,7 @@ class Api::GoalsController < ApplicationController
   end
 
   def create
+    eap "Hit this route"
     @user = User.find_by(id: params[:user_id])
     @goal = Goal.new(goal_params)
     @goal.user = @user
