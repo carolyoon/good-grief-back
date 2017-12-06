@@ -13,7 +13,7 @@ class Api::SessionsController < ApplicationController
 
   def refresh
     @user = User.find(session_params[:user_id])
-
+    eap session_params[:user_id]
     @user.token = session_params[:token]
     @decoded_id = @user.decode_token.first['user']
     if @decoded_id == @user.id

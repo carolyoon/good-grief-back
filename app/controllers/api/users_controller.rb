@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
   before_action :authenticate_user, only: [:show, :update]
 
   def create
-    @stage = Stage.find_by_name(user_params[:stage])
+    @stage = Stage.find_by_id(user_params[:stage])
     @user = @stage.users.new(username: user_params[:username], password: user_params[:password])
     if @user.save
       @token = @user.set_token
