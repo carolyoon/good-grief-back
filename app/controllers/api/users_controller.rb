@@ -4,7 +4,6 @@ class Api::UsersController < ApplicationController
 
   def create
     @stage = Stage.find_by_id(user_params[:stage])
-    eap @stage
     @user = @stage.users.new(username: user_params[:username], password: user_params[:password])
     if @user.save
       @token = @user.set_token

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
 
+    post '/api/sessions/refresh', to: 'api/sessions#refresh'
   namespace :api do
-    post '/sessions/refresh', to: 'sessions#refresh'
 
     resources :sessions, only: [:create, :destroy]
     resources :users do
