@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  before_action :authenticate_user, only: [:show, :update]
+  # before_action :authenticate_user, only: [:show, :update]
 
   def create
     @stage = Stage.find_by_id(user_params[:stage])
@@ -31,7 +31,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :stage)
+    params.require(:user).permit(:username, :password, :stage, :stage_id)
   end
 
 end
