@@ -5,7 +5,7 @@ class Api::GoalsController < ApplicationController
   # before_action :authenticate_user
 
   def index
-    @user = User.find_by(id: params[:user_id])
+    @user = User.find(params["user_id"])
     @goals = @user.goals.order(created_at: :desc)
 
     render json: @goals
@@ -15,7 +15,7 @@ class Api::GoalsController < ApplicationController
     eap "Hit this route"
     @user = User.find_by(id: params[:user_id])
     @goal = Goal.new(goal_params)
-    @goal.user = @user
+    @goal.user = @user 
 
     if @goal.save
       render json: {goal: @goal}
